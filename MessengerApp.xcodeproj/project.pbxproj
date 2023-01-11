@@ -25,6 +25,7 @@
 		20923D06296E94EE00824028 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 20923D05296E94EE00824028 /* FirebaseFirestore */; };
 		20923D08296E94EE00824028 /* FirebaseInstallations in Frameworks */ = {isa = PBXBuildFile; productRef = 20923D07296E94EE00824028 /* FirebaseInstallations */; };
 		20923D0A296EB4CA00824028 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 20923D09296EB4CA00824028 /* GoogleService-Info.plist */; };
+		20923D0C296F1B6B00824028 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20923D0B296F1B6B00824028 /* DatabaseManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		20923CF7296E1F2800824028 /* NewConversationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationVC.swift; sourceTree = "<group>"; };
 		20923CFA296E2ADB00824028 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		20923D09296EB4CA00824028 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		20923D0B296F1B6B00824028 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,8 +96,8 @@
 		20923CE9296E174900824028 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				20923CF9296E222B00824028 /* Login */,
 				20923CD9296E162100824028 /* ConversationVC.swift */,
+				20923CF9296E222B00824028 /* Login */,
 				20923CF3296E1F0400824028 /* PhotoVC.swift */,
 				20923CF5296E1F1900824028 /* VideoPlayerVC.swift */,
 				20923CF7296E1F2800824028 /* NewConversationVC.swift */,
@@ -132,6 +134,7 @@
 				20923CD5296E162100824028 /* AppDelegate.swift */,
 				20923CD7296E162100824028 /* SceneDelegate.swift */,
 				20923CFA296E2ADB00824028 /* Extensions.swift */,
+				20923D0B296F1B6B00824028 /* DatabaseManager.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -237,6 +240,7 @@
 			files = (
 				20923CF8296E1F2800824028 /* NewConversationVC.swift in Sources */,
 				20923CFB296E2ADB00824028 /* Extensions.swift in Sources */,
+				20923D0C296F1B6B00824028 /* DatabaseManager.swift in Sources */,
 				20923CF6296E1F1900824028 /* VideoPlayerVC.swift in Sources */,
 				20923CDA296E162100824028 /* ConversationVC.swift in Sources */,
 				20923CD6296E162100824028 /* AppDelegate.swift in Sources */,
