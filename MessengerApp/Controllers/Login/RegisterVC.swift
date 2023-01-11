@@ -254,17 +254,9 @@ extension RegisterVC: UIImagePickerControllerDelegate, UINavigationControllerDel
     }
     
     func presentPhotoPicker() {
-//        let vc = UIImagePickerController()
-//        vc.sourceType = .photoLibrary
-//        vc.delegate = self
-//        vc.allowsEditing = true
-//        present(vc, animated: true)
-        
         var configuration: PHPickerConfiguration = PHPickerConfiguration()
         configuration.filter = PHPickerFilter.images
-        
-        //configuration.selectionLimit = 10
-        
+
         let picker: PHPickerViewController = PHPickerViewController(configuration: configuration)
         picker.delegate = self
         present(picker, animated: true, completion: nil)
@@ -283,11 +275,9 @@ extension RegisterVC: UIImagePickerControllerDelegate, UINavigationControllerDel
                     DispatchQueue.main.async {
                         self.imageView.image = image
                     }
-
                 }
             }
         }
-        
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
