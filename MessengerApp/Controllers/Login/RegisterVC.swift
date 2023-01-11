@@ -7,6 +7,7 @@
 
 import UIKit
 import PhotosUI
+import FirebaseAuth
 
 class RegisterVC: UIViewController {
 
@@ -170,12 +171,10 @@ class RegisterVC: UIViewController {
 }
     
     @objc private func registerButtonTapped() {
-        
         emailField.resignFirstResponder()
         passwordField.resignFirstResponder()
         firstNameField.resignFirstResponder()
         lastNameField.resignFirstResponder()
-        
         
         guard let email = emailField.text,
               let password = passwordField.text,
@@ -192,6 +191,14 @@ class RegisterVC: UIViewController {
               }
         
         //firebase login
+        FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+            guard let result = authResult, error == nil else {
+                print("error in auth")
+                return
+            }
+            let user = result.user
+            print("Created is \(user)")
+        }
     }
     
     func alertUserLoginError() {
