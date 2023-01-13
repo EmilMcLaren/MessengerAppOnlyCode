@@ -105,8 +105,6 @@ class RegisterVC: UIViewController {
         title = "Log In"
         view.backgroundColor = .white
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register", style: .done, target: self, action: #selector(didTapRegister))
-        
         registerButton.addTarget(self, action: #selector(registerButtonTapped), for: .touchUpInside)
         
         emailField.delegate = self
@@ -226,12 +224,6 @@ class RegisterVC: UIViewController {
         present(alert, animated: true)
     }
     
-    
-    @objc func didTapRegister() {
-        let vc = RegisterVC()
-        vc.title = "Create Account"
-        navigationController?.pushViewController(vc, animated: true)
-    }
 }
 
 extension RegisterVC: UITextFieldDelegate {

@@ -2,9 +2,26 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Please allow acces to take a profile picture</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Please allow acces to select a photo for your profile</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.664606879930-a43q4ejjb2n7p8lur3e0rc0hecrtimnu</string>
+				<string>fb1180376585937980</string>
+			</array>
+		</dict>
+	</array>
+	<key>FacebookAppID</key>
+	<string>1180376585937980</string>
+	<key>FacebookClientToken</key>
+	<string>393991e20e45488d0987835f6d86d87b</string>
+	<key>FacebookDisplayName</key>
+	<string>My Messenger</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-share-api</string>
+	</array>
 </dict>
 </plist>
