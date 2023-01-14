@@ -10,6 +10,8 @@ import Firebase
 import FirebaseCore
 import FBSDKCoreKit
 import GoogleSignIn
+import GoogleSignInSwift
+
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -26,9 +28,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             didFinishLaunchingWithOptions: launchOptions
         )
         
-//        //google
-//        GIDSignIn.sharedInstance.configuration?.clientID = "664606879930-a43q4ejjb2n7p8lur3e0rc0hecrtimnu.apps.googleusercontent.com"
-//        GIDSignIn.sharedInstance()?.delegate = self
+        
+        
+        //google
+        GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
+            if error != nil || user == nil {
+              print("Sign in \(user)")
+            } else {
+                print("Error \(error)")
+            }
+        }
+        
+    
+//
+//        var googleClientID = GIDSignIn.sharedInstance.configuration?.clientID
+//        let fireClientID = FirebaseApp.app()?.options.clientID
+////
+//        googleClientID = fireClientID
+////        dd = dde
+////
+//        print(googleClientID)
+//        print(fireClientID)
+        
+        
+        
+        
+//        print(FirebaseApp.app()?.options.clientID)
+//        print(type(of: dd))
+        
         
         
 
@@ -64,12 +91,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         open url: URL,
         options: [UIApplication.OpenURLOptionsKey : Any] = [:]
     ) -> Bool {
+        
         ApplicationDelegate.shared.application(
             app,
             open: url,
             sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
             annotation: options[UIApplication.OpenURLOptionsKey.annotation]
         )
+        
+        //MARK: ======================================================================================
+        //return GIDSignIn.sharedInstance.handle(url)
+        var handled: Bool
+          handled = GIDSignIn.sharedInstance.handle(url)
+          if handled {
+            return true
+          }
+          // Handle other custom URL types.
+
+          // If not handled by this app, return false.
+          return false
+        //MARK: ======================================================================================
     }
 }
 

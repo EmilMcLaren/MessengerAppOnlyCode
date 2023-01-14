@@ -7,8 +7,11 @@
 
 import UIKit
 import FirebaseAuth
+import Firebase
 import FacebookLogin
 import FacebookCore
+import GoogleSignIn
+import GoogleUtilities_AppDelegateSwizzler
 
 
 //let loginButton = FBLoginButton()
@@ -16,6 +19,8 @@ import FacebookCore
 //        view.addSubview(loginButton)
 
 class LoginVC: UIViewController {
+
+    
 
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -80,7 +85,10 @@ class LoginVC: UIViewController {
         return button
     }()
     
+    private let loginButtonGoogle = GIDSignInButton()
+    
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         title = "Log In"
         view.backgroundColor = .white
@@ -88,6 +96,7 @@ class LoginVC: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register", style: .done, target: self, action: #selector(didTapRegister))
         
         loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
+        loginButtonGoogle.addTarget(self, action: #selector(loginButtonTappedGoogle), for: .touchUpInside)
         
         loginButtonFB.delegate = self
         
@@ -100,7 +109,8 @@ class LoginVC: UIViewController {
         scrollView.addSubview(emailField)
         scrollView.addSubview(passwordField)
         scrollView.addSubview(loginButton)
-        scrollView.addSubview(loginButtonFB)  
+        scrollView.addSubview(loginButtonFB)
+        scrollView.addSubview(loginButtonGoogle)
     }
     
     override func viewDidLayoutSubviews() {
@@ -132,9 +142,15 @@ class LoginVC: UIViewController {
                                   y: loginButton.buttom+10,
                                   width: scrollView.width-60,
                                  height: 52)
-        loginButtonFB.frame.origin.y = loginButton.buttom+20
+        
+        loginButtonGoogle.frame = CGRect(x: 30,
+                                  y: loginButtonFB.buttom+10,
+                                  width: scrollView.width-60,
+                                 height: 52)
+        //loginButtonFB.frame.origin.y = loginButton.buttom+20
+        
 }
-    
+    //firebase login
     @objc private func loginButtonTapped() {
         
         emailField.resignFirstResponder()
@@ -158,6 +174,66 @@ class LoginVC: UIViewController {
             strongSelf.navigationController?.dismiss(animated: true, completion: nil)
         }
     }
+    
+    //google login
+    @objc private func loginButtonTappedGoogle() {
+ 
+        GIDSignIn.sharedInstance.signIn(withPresenting: self) { signInResult, error in
+        guard error == nil else { return }
+
+           
+            print("here")
+            signInResult?.user.refreshTokensIfNeeded { user, error in
+                   guard error == nil else { return }
+                   guard let user = user else { return }
+
+                guard let idToken = user.idToken?.tokenString else {return}
+                let accessToken = user.accessToken.tokenString
+                
+                print("Did sign with id toke: \(idToken)")
+                print("Did sign with Google: \(user)")
+
+                guard let email = user.profile?.email,
+                      let firstName = user.profile?.givenName,
+                      let lastName = user.profile?.familyName else {return}
+
+                DatabaseManager.shared.userExist(with: email) { exist in
+                    if !exist {
+                        DatabaseManager.shared.insertUser(with: ChatAppUser(firstName: firstName,
+                                                                            lastName: lastName,
+                                                                            emailAddress: email))
+                    }
+                }
+                let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: accessToken)
+                FirebaseAuth.Auth.auth().signIn(with: credential) { [weak self] authResult, error in
+                    guard let strongSelf = self else {return}
+                    
+                    guard authResult != nil, error == nil else {
+                        print("Failed to log in with google credential")
+                        return
+                    }
+                    print("Successfully to log in with google credential")
+                    strongSelf.navigationController?.dismiss(animated: true, completion: nil)
+                }
+                
+//                let cter = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: idToken)
+//
+//               }
+
+                
+            
+    }
+        }
+        
+        
+//        GIDSignIn.sharedInstance.signIn(withPresenting: self) { signInResult, error in
+//            guard error == nil else { return }
+//
+//
+//            // If sign in succeeded, display the app's main content View.
+//          }
+    }
+    
     
     func alertUserLoginError() {
         let alert = UIAlertController(title: "Error", message: "Please enter all information", preferredStyle: .alert)
@@ -185,6 +261,7 @@ extension LoginVC: UITextFieldDelegate {
         return true
     }
 }
+
 
 //Facebook loginButtonFB delegate
 extension LoginVC: LoginButtonDelegate {
@@ -255,3 +332,4 @@ extension LoginVC: LoginButtonDelegate {
        
     }
 }
+
