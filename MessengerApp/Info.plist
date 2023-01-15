@@ -9,9 +9,8 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>664606879930-a43q4ejjb2n7p8lur3e0rc0hecrtimnu.apps.googleusercontent.com</string>
-				<string>com.googleusercontent.apps.664606879930-a43q4ejjb2n7p8lur3e0rc0hecrtimnu</string>
 				<string>fb1180376585937980</string>
+				<string>com.googleusercontent.apps.664606879930-a43q4ejjb2n7p8lur3e0rc0hecrtimnu</string>
 			</array>
 		</dict>
 	</array>
@@ -26,16 +25,7 @@
 		<string>fbapi</string>
 		<string>fb-messenger-share-api</string>
 	</array>
-    <key>GIDClientID</key>
-    <string>664606879930-a43q4ejjb2n7p8lur3e0rc0hecrtimnu.apps.googleusercontent.com</string>
-    <key>CFBundleURLTypes</key>
-    <array>
-      <dict>
-        <key>CFBundleURLSchemes</key>
-        <array>
-          <string>com.googleusercontent.apps.664606879930-a43q4ejjb2n7p8lur3e0rc0hecrtimnu</string>
-        </array>
-      </dict>
-    </array>
+	<key>GIDClientID</key>
+	<string>664606879930-a43q4ejjb2n7p8lur3e0rc0hecrtimnu.apps.googleusercontent.com</string>
 </dict>
 </plist>

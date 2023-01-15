@@ -8,9 +8,16 @@
 import UIKit
 import PhotosUI
 import FirebaseAuth
+import JGProgressHUD
 
+
+//let loginButton = FBLoginButton()
+//        loginButton.center = view.center
+//        view.addSubview(loginButton)
 class RegisterVC: UIViewController {
 
+    private let spinner = JGProgressHUD(style: .dark )
+    
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.clipsToBounds = true
@@ -188,9 +195,15 @@ class RegisterVC: UIViewController {
                   return
               }
         
+        spinner.show(in: view)
+        
         //firebase login
         DatabaseManager.shared.userExist(with: email) { [weak self] exist in
             guard let strongSelf = self else {return}
+            
+            DispatchQueue.main.async {
+                strongSelf.spinner.dismiss()
+            }
             
             guard !exist else {
                 strongSelf.alertUserLoginError(message: "Looks like a user account for that email adress already exist.")
