@@ -9,7 +9,6 @@ import UIKit
 import FirebaseAuth
 import JGProgressHUD
 import openssl_grpc
- 
 
 class ConversationVC: UIViewController {
 
@@ -57,6 +56,9 @@ class ConversationVC: UIViewController {
     
     //Set NavigationBar and SearchController
      func  navBarAppearance() {
+         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose,
+                                                             target: self,
+                                                             action: #selector(didTapComposeButton))
         navigationController?.navigationBar.prefersLargeTitles = true
         
         let appearance = UINavigationBarAppearance()
@@ -84,6 +86,15 @@ class ConversationVC: UIViewController {
         super.viewDidAppear(animated)
         validateAuth()
     }
+    
+    
+    @objc private func didTapComposeButton() {
+        let vc = NewConversationVC()
+        let navVC = UINavigationController(rootViewController: vc)
+        present(navVC, animated: true)
+    }
+    
+    
     
     //let isLoggedIN = UserDefaults.standard.bool(forKey: "logged_in")
     
@@ -114,7 +125,6 @@ extension ConversationVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
         let vc = ChatViewController()
         vc.title = "Jony Smith"
         vc.navigationItem.largeTitleDisplayMode = .never
