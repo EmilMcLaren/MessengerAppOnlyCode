@@ -12,6 +12,7 @@
 		2001D42C2972F14500138F1F /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 2001D42B2972F14500138F1F /* SDWebImage */; };
 		20442042297584C400466BF4 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20442041297584C400466BF4 /* ChatViewController.swift */; };
 		204420442976A1AA00466BF4 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204420432976A1AA00466BF4 /* StorageManager.swift */; };
+		204420472976A88B00466BF4 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 204420462976A88B00466BF4 /* FirebaseStorage */; };
 		208DA2EA2972FCF800216C70 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 208DA2E92972FCF800216C70 /* Realm */; };
 		208DA2EC2972FCF800216C70 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 208DA2EB2972FCF800216C70 /* RealmSwift */; };
 		20923CD6296E162100824028 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20923CD5296E162100824028 /* AppDelegate.swift */; };
@@ -75,6 +76,7 @@
 				20923D02296E94EE00824028 /* FirebaseAuthCombine-Community in Frameworks */,
 				20923D04296E94EE00824028 /* FirebaseDatabase in Frameworks */,
 				2001D42C2972F14500138F1F /* SDWebImage in Frameworks */,
+				204420472976A88B00466BF4 /* FirebaseStorage in Frameworks */,
 				20923D08296E94EE00824028 /* FirebaseInstallations in Frameworks */,
 				20923D06296E94EE00824028 /* FirebaseFirestore in Frameworks */,
 				20923D13297047F700824028 /* FacebookLogin in Frameworks */,
@@ -87,11 +89,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		204420452976A88B00466BF4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		20923CC9296E162100824028 = {
 			isa = PBXGroup;
 			children = (
 				20923CD4296E162100824028 /* MessengerApp */,
 				20923CD3296E162100824028 /* Products */,
+				204420452976A88B00466BF4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -215,6 +225,7 @@
 				2001D42B2972F14500138F1F /* SDWebImage */,
 				208DA2E92972FCF800216C70 /* Realm */,
 				208DA2EB2972FCF800216C70 /* RealmSwift */,
+				204420462976A88B00466BF4 /* FirebaseStorage */,
 			);
 			productName = MessengerApp;
 			productReference = 20923CD2296E162100824028 /* MessengerApp.app */;
@@ -580,6 +591,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2001D42A2972F14500138F1F /* XCRemoteSwiftPackageReference "SDWebImage" */;
 			productName = SDWebImage;
+		};
+		204420462976A88B00466BF4 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 20923CFC296E94ED00824028 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
 		};
 		208DA2E92972FCF800216C70 /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;
