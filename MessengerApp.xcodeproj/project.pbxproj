@@ -38,7 +38,6 @@
 		20923D13297047F700824028 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 20923D12297047F700824028 /* FacebookLogin */; };
 		20923D16297198D100824028 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 20923D15297198D100824028 /* GoogleSignIn */; };
 		20923D18297198D100824028 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 20923D17297198D100824028 /* GoogleSignInSwift */; };
-		20F7F7EE2973DC1000E28790 /* aChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F7F7ED2973DC0F00E28790 /* aChatViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,7 +59,6 @@
 		20923D09296EB4CA00824028 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		20923D0B296F1B6B00824028 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		20923D0F2970263600824028 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
-		20F7F7ED2973DC0F00E28790 /* aChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = aChatViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,7 +134,6 @@
 				20923CF5296E1F1900824028 /* VideoPlayerVC.swift */,
 				20923CF7296E1F2800824028 /* NewConversationVC.swift */,
 				20923D0F2970263600824028 /* ProfileVC.swift */,
-				20F7F7ED2973DC0F00E28790 /* aChatViewController.swift */,
 				20442041297584C400466BF4 /* ChatViewController.swift */,
 			);
 			path = Controllers;
@@ -303,7 +300,6 @@
 				20923CF0296E1EC800824028 /* LoginVC.swift in Sources */,
 				20923CD8296E162100824028 /* SceneDelegate.swift in Sources */,
 				20923CF2296E1EF400824028 /* RegisterVC.swift in Sources */,
-				20F7F7EE2973DC1000E28790 /* aChatViewController.swift in Sources */,
 				20923CF4296E1F0400824028 /* PhotoVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -178,6 +178,9 @@ class LoginVC: UIViewController {
                 return
             }
             let user = result.user
+            
+            UserDefaults.standard.set(email, forKey: "email")
+            
             print("Logged  in user \(user)")
             strongSelf.navigationController?.dismiss(animated: true, completion: nil)
         }
@@ -203,8 +206,12 @@ class LoginVC: UIViewController {
 
                 guard let email = user.profile?.email,
                       let firstName = user.profile?.givenName,
-                      let lastName = user.profile?.familyName else {return}
+                      let lastName = user.profile?.familyName else {
+                          return
+                      }
 
+                
+                UserDefaults.standard.set(email, forKey: "email")
                 DatabaseManager.shared.userExist(with: email) { exist in
                     if !exist {
                         let chatUser = ChatAppUser(firstName: firstName,
@@ -335,6 +342,8 @@ extension LoginVC: LoginButtonDelegate {
                 print("Failed to get email and name from FB")
                 return
             }
+            
+            UserDefaults.standard.set(email, forKey: "email")
             
             
             

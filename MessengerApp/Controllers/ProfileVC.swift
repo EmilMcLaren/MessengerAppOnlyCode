@@ -22,8 +22,37 @@ class ProfileVC: UITableViewController {
         navBarAppearance()
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.tableHeaderView = createTableHeader
+        
+        print("111It self \((view.width)/2)")
         
         view.backgroundColor = .white
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        if let imageViewForHeader = imageViewForHeader {
+            imageViewForHeader.frame = CGRect(x: (view.width-150)/2,
+                                     y: 75,
+                                     width: 150,
+                                     height: 150)
+            
+            imageViewForHeader.layer.cornerRadius = imageViewForHeader.width/2
+            
+        }
+        
+//        imageViewForHeader?.frame = CGRect(x: (view.width-150)/2,
+//                                 y: 75,
+//                                 width: 150,
+//                                 height: 150)
+//
+//        imageViewForHeader?.layer.cornerRadius = imageViewForHeader!.width/2
+//
+        createTableHeader = UIView(frame: CGRect(x: 0,
+                                        y: 0,
+                                        width: self.view.width,
+                                        height: 300))
     }
     
 
@@ -39,8 +68,69 @@ class ProfileVC: UITableViewController {
    }
     
     
+    lazy var createTableHeader: UIView? =  {
+        guard let email = UserDefaults.standard.value(forKey: "email") as? String else { return nil }
+        
+        let safeEmail = DatabaseManager.safeEmail(emailAddress: email)
+        let fileName = safeEmail + "_profile_picture.png"
+        let path = "image/"+fileName
+        
+        let headerView = UIView(frame: CGRect(x: 0,
+                                        y: 0,
+                                        width: self.view.width,
+                                        height: 300))
+        headerView.backgroundColor = .link
+        headerView.addSubview(imageViewForHeader!)
+        return headerView
+    }()
     
     
+    lazy var imageViewForHeader: UIImageView? = {
+        guard let email = UserDefaults.standard.value(forKey: "email") as? String else { return nil }
+
+        let safeEmail = DatabaseManager.safeEmail(emailAddress: email)
+        let fileName = safeEmail + "_profile_picture.png"
+        let path = "images/"+fileName
+
+        let imageView = UIImageView()
+        imageView.backgroundColor = .white
+        imageView.contentMode = .scaleAspectFit
+        imageView.layer.borderColor = UIColor.white.cgColor
+        imageView.layer.borderWidth = 3
+        imageView.layer.masksToBounds = true
+        imageView.layer.cornerRadius = imageView.width/2
+        
+        StorageManager.shared.downloadUrl(for: path) { [weak self] result in
+            switch result {
+            case .success(let url):
+                print("This url: \(url)")
+                self?.downloadImage(imageView: imageView, url: url)
+            case .failure(let error):
+                print("Failed to get download url: \(error)")
+            }
+        }
+
+        return imageView
+    }()
+    
+    
+    func downloadImage(imageView: UIImageView, url: URL) {
+        URLSession.shared.dataTask(with: url) { data, _, error in
+            guard let data = data, error == nil else {
+                return
+            }
+            DispatchQueue.main.async {
+                let image = UIImage(data: data)
+                imageView.image = image
+            }
+        }.resume()
+    }
+    
+    
+    
+    
+    
+    //MARK: TableView DataSource
 //    override func numberOfSections(in tableView: UITableView) -> Int {
 //        // #warning Incomplete implementation, return the number of sections
 //        return 0

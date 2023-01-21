@@ -40,26 +40,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
     
-//
-//        var googleClientID = GIDSignIn.sharedInstance.configuration?.clientID
-//        let fireClientID = FirebaseApp.app()?.options.clientID
-////
-//        googleClientID = fireClientID
-////        dd = dde
-////
-//        print(googleClientID)
-//        print(fireClientID)
-        
-        
-        
-        
-//        print(FirebaseApp.app()?.options.clientID)
-//        print(type(of: dd))
-        
-        
-        
-
-        
         let conversationVC = ConversationVC()
         let profileVC = ProfileVC()
         
