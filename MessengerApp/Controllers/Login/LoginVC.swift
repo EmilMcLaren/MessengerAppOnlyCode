@@ -179,7 +179,23 @@ class LoginVC: UIViewController {
             }
             let user = result.user
             
+            let safeEmail = DatabaseManager.safeEmail(emailAddress: email)
+            DatabaseManager.shared.getDataFor(path: safeEmail) { [weak self] result in
+                switch result {
+                case .success(let data):
+                    guard let userData = data as? [String: Any],
+                          let firstName = userData["first_name"],
+                          let lastName = userData["last_name"] else {
+                              return
+                          }
+                    UserDefaults.standard.set("\(firstName) \(lastName)", forKey: "name")
+                case .failure(let error):
+                    print("Failed to read data with error \(error)")
+                }
+            }
+            
             UserDefaults.standard.set(email, forKey: "email")
+            
             
             print("Logged  in user \(user)")
             strongSelf.navigationController?.dismiss(animated: true, completion: nil)
@@ -212,6 +228,8 @@ class LoginVC: UIViewController {
 
                 
                 UserDefaults.standard.set(email, forKey: "email")
+                UserDefaults.standard.set("\(firstName) \(lastName)", forKey: "name")
+                
                 DatabaseManager.shared.userExist(with: email) { exist in
                     if !exist {
                         let chatUser = ChatAppUser(firstName: firstName,
@@ -301,7 +319,7 @@ extension LoginVC: UITextFieldDelegate {
 }
 
 
-//Facebook loginButtonFB delegate
+//MARK: Facebook loginButtonFB delegate
 extension LoginVC: LoginButtonDelegate {
 
     func loginButtonDidLogOut(_ loginButton: FBLoginButton) {
@@ -344,6 +362,7 @@ extension LoginVC: LoginButtonDelegate {
             }
             
             UserDefaults.standard.set(email, forKey: "email")
+            UserDefaults.standard.set("\(firstName) \(lastName)", forKey: "name")
             
             
             

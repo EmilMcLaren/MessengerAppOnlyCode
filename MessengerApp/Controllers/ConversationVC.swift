@@ -30,8 +30,6 @@ class ConversationVC: UIViewController {
     
     var conversations = [Conversation]()
     
-    var dd = ["sssss"]
-    
     private let tableView: UITableView = {
         let table = UITableView()
         table.isHidden = true
@@ -68,6 +66,20 @@ class ConversationVC: UIViewController {
         tableView.frame = view.bounds
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tabBarController?.tabBar.isHidden = false
+//        DispatchQueue.main.async {
+//            self.tableView.reloadData()
+//        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        validateAuth()
+    }
+    
+    
     
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -96,7 +108,7 @@ class ConversationVC: UIViewController {
                 }
                 
             case .failure(let error):
-                print("failed to get convos\(error)")
+                print("failed to get convos \(error)")
             }
             
         
@@ -128,15 +140,7 @@ class ConversationVC: UIViewController {
     func fetchConversation() {
         tableView.isHidden = false
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.tabBarController?.tabBar.isHidden = false
-    }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        validateAuth()
-    }
     
     
     @objc private func didTapComposeButton() {
@@ -149,10 +153,11 @@ class ConversationVC: UIViewController {
         present(navVC, animated: true)
     }
     
+    
     private func createNewConversation(result: [String: String]) {
         guard let name = result["name"], let email = result["email"] else { return }
         
-        let vc = ChatViewController(with: email)
+        let vc = ChatViewController(with: email, id: nil)
         vc.isNewConversation = true
         vc.title = name
         vc.navigationItem.largeTitleDisplayMode = .never
@@ -194,7 +199,7 @@ extension ConversationVC: UITableViewDelegate, UITableViewDataSource {
 
         let model = conversations[indexPath.row]
         
-        let vc = ChatViewController(with: model.otherUserEmail)
+        let vc = ChatViewController(with: model.otherUserEmail, id: model.id)
         vc.title = model.name
         vc.navigationItem.largeTitleDisplayMode = .never
         navigationController?.pushViewController(vc, animated: true)
