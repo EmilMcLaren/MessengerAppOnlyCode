@@ -180,6 +180,7 @@ class LoginVC: UIViewController {
             let user = result.user
             
             let safeEmail = DatabaseManager.safeEmail(emailAddress: email)
+            
             DatabaseManager.shared.getDataFor(path: safeEmail) { [weak self] result in
                 switch result {
                 case .success(let data):
@@ -191,6 +192,21 @@ class LoginVC: UIViewController {
                     UserDefaults.standard.set("\(firstName) \(lastName)", forKey: "name")
                 case .failure(let error):
                     print("Failed to read data with error \(error)")
+                }
+            }
+            
+            //let safeEmailTo = DatabaseManager.safeEmail(emailAddress: email)
+            DatabaseManager.shared.getDataFor(path: safeEmail) { [weak self] result in
+                switch result {
+                case .success(let data):
+                    guard let userData = data as? [String: Any],
+                          let firstName = userData["first_name"],
+                          let lastName = userData["last_name"] else {
+                              return
+                          }
+                    UserDefaults.standard.set("\(firstName) \(lastName)", forKey: "name")
+                case .failure(let error):
+                    print("Failed to get and read fata with error \(error)")
                 }
             }
             
