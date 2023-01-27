@@ -40,9 +40,6 @@ class ConversationTableViewCell: UITableViewCell {
         contentView.addSubview(userImageView)
         contentView.addSubview(userNameLabel)
         contentView.addSubview(userMessageLabel)
-//        contentView.addSubview(userImageView)
-//        contentView.addSubview(userNameLabel)
-//        contentView.addSubview(userMessageLabel)
     }
     
     required init?(coder: NSCoder) {
@@ -71,7 +68,6 @@ class ConversationTableViewCell: UITableViewCell {
         self.userMessageLabel.text = model.latestMessage.text
         self.userNameLabel.text = model.name
         
-        print(model.otherUserEmail)
         //"images/"
         let path = "images/\(model.otherUserEmail)_profile_picture.png"
         //email-gmail-com_profile_picture.png

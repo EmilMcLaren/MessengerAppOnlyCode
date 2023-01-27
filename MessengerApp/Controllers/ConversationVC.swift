@@ -53,6 +53,10 @@ class ConversationVC: UIViewController {
         view.backgroundColor = .white
         navBarAppearance()
         
+        //resetDefaults()
+        
+        //print(UserDefaults.value(forKey: "email"))
+        
         view.addSubview(tableView)
         view.addSubview(noConversationLabel)
         
@@ -85,6 +89,15 @@ class ConversationVC: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
     }
+    
+    func resetDefaults() {
+        let defaults = UserDefaults.standard
+        let dictionary = defaults.dictionaryRepresentation()
+        dictionary.keys.forEach { key in
+            defaults.removeObject(forKey: key)
+        }
+    }
+    
     
     private func startListeningForConversation() {
         guard let email = UserDefaults.standard.value(forKey: "email") as? String else {

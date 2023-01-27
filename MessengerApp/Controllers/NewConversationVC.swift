@@ -102,7 +102,7 @@ extension NewConversationVC: UITableViewDelegate, UITableViewDataSource {
         //start coversation
         let targetDataUsers = results[indexPath.row]
         dismiss(animated: true) { [weak self] in
-            self?.completion?(targetDataUsers)
+         self?.completion?(targetDataUsers)
         }
         print("deselectRow")
     }
