@@ -28,6 +28,8 @@ class ConversationVC: UIViewController {
 
     private let spinner = JGProgressHUD(style: .dark )
     
+    public var completion: ((SearchResult) -> (Void))?
+    
     var conversations = [Conversation]()
     
     private let tableView: UITableView = {
@@ -167,8 +169,9 @@ class ConversationVC: UIViewController {
     }
     
     
-    private func createNewConversation(result: [String: String]) {
-        guard let name = result["name"], let email = result["email"] else { return }
+    private func createNewConversation(result: SearchResult) {
+        let name = result.name
+        let email = result.email
         
         let vc = ChatViewController(with: email, id: nil)
         vc.isNewConversation = true

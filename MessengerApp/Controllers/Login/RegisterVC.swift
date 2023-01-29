@@ -318,7 +318,6 @@ extension RegisterVC: UIImagePickerControllerDelegate, UINavigationControllerDel
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         
         dismiss(animated: true)
-        
 
         //print(results)
         for item in results {

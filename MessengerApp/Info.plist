@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Please allow access to sent audio and video messages</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Please allow access to select phot from you library</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Please allow access to take a profile picture</string>
 	<key>GIDClientID </key>
 	<string>664606879930-a43q4ejjb2n7p8lur3e0rc0hecrtimnu.apps.googleusercontent.com</string>
 	<key>CFBundleURLTypes</key>
