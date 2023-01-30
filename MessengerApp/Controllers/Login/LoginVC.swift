@@ -87,10 +87,20 @@ class LoginVC: UIViewController {
     }()
     
     private let loginButtonGoogle = GIDSignInButton()
+    private var loginObserver: NSObjectProtocol?
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
+        
+        loginObserver = NotificationCenter.default.addObserver(forName: .didLogInNotification, object: nil, queue: .main, using: { [weak self] _ in
+            guard let strongSelf = self else {
+                return
+            }
+            
+            strongSelf.navigationController?.dismiss(animated: true)
+        })
+        
+        
         title = "Log In"
         view.backgroundColor = .white
         
