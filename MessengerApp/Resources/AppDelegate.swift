@@ -45,11 +45,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let firstController = UINavigationController(rootViewController: conversationVC)
         let secondController = UINavigationController(rootViewController: profileVC)
+        //
         
-//        firstController.tabBarItem = UITabBarItem(tabBarSystemItem: .contacts, tag: 0)
-//        firstController.tabBarItem.title = "first"
-        firstController.tabBarItem = UITabBarItem(title: "Chats", image: UIImage(named: "person.crop.circle"), tag: 0)
-        secondController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(named: "person.crop.circle"), tag: 1)
+        firstController.tabBarItem = UITabBarItem(title: "Chats", image: UIImage(named: "messageBar")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), tag: 0)
+        secondController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(named: "profileBar")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), tag: 0)
+        
+        //firstController.tabBarItem = UITabBarItem(tabBarSystemItem: , tag: <#T##Int#>)
+        //firstController.tabBarItem.title = "first"
+        //firstController.tabBarItem = UITabBarItem(title: "Test1", image: UIImage(named: "person.crop.circle"), tag: 0)
+        //firstController.tabBarItem = UITabBarItem(title: "Test1", image: UIImage(named: "person.crop.circle"), tag: 0)
+        //secondController.tabBarItem = UITabBarItem(title: "Test2", image: UIImage(named: "person.crop.circle")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), tag: 1)
         
         let tapBar = UITabBarController()
         tapBar.tabBar.tintColor = .black

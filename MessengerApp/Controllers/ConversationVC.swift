@@ -57,7 +57,6 @@ class ConversationVC: UIViewController {
         navBarAppearance()
         
         //resetDefaults()
-        
         //print(UserDefaults.value(forKey: "email"))
         
         view.addSubview(tableView)
@@ -71,7 +70,6 @@ class ConversationVC: UIViewController {
             guard let strongSelf = self else {
                 return
             }
-            
             strongSelf.startListeningForConversation()
         })
     }
@@ -176,9 +174,25 @@ class ConversationVC: UIViewController {
     @objc private func didTapComposeButton() {
         let vc = NewConversationVC()
         vc.completion = { [weak self] result in
+            guard let strongSelf = self else {
+                return
+            }
             print("\(result)")
-            self?.createNewConversation(result: result)
+            
+            let currentConversation = strongSelf.conversations
+            //check have and get to set profile conversation
+            if let targetConversation = currentConversation.first(where: { $0.otherUserEmail == DatabaseManager.safeEmail(emailAddress: result.email)
+            }) {
+                let vc = ChatViewController(with: targetConversation.otherUserEmail, id: targetConversation.id)
+                vc.isNewConversation = false
+                vc.title = targetConversation.name
+                vc.navigationItem.largeTitleDisplayMode = .never
+                strongSelf.navigationController?.pushViewController(vc, animated: true)
+            } else {
+                strongSelf.createNewConversation(result: result)
+            }
         }
+        
         let navVC = UINavigationController(rootViewController: vc)
         present(navVC, animated: true)
     }
@@ -186,13 +200,32 @@ class ConversationVC: UIViewController {
     
     private func createNewConversation(result: SearchResult) {
         let name = result.name
-        let email = result.email
+        let email = DatabaseManager.safeEmail(emailAddress: result.email)
         
-        let vc = ChatViewController(with: email, id: nil)
-        vc.isNewConversation = true
-        vc.title = name
-        vc.navigationItem.largeTitleDisplayMode = .never
-        navigationController?.pushViewController(vc, animated: true)
+        //check in database if Conversation with these two users exists
+        //if it does, reuse Conversation id
+        //otherwise use existing code
+        DatabaseManager.shared.conversationExists(with: email) { [weak self] result in
+            
+            guard let strongSelf = self else {
+                return
+            }
+            
+            switch result {
+            case .success(let conversationId):
+                let vc = ChatViewController(with: email, id: conversationId)
+                vc.isNewConversation = false
+                vc.title = name
+                vc.navigationItem.largeTitleDisplayMode = .never
+                strongSelf.navigationController?.pushViewController(vc, animated: true)
+            case .failure(_):
+                let vc = ChatViewController(with: email, id: nil)
+                vc.isNewConversation = true
+                vc.title = name
+                vc.navigationItem.largeTitleDisplayMode = .never
+                strongSelf.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
     }
     
     
@@ -230,12 +263,16 @@ extension ConversationVC: UITableViewDelegate, UITableViewDataSource {
 
         let model = conversations[indexPath.row]
         
+        openConversation(model)
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func openConversation(_ model: Conversation) {
         let vc = ChatViewController(with: model.otherUserEmail, id: model.id)
         vc.title = model.name
         vc.navigationItem.largeTitleDisplayMode = .never
         navigationController?.pushViewController(vc, animated: true)
-        
-        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

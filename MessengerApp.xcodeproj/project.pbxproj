@@ -14,6 +14,7 @@
 		204420442976A1AA00466BF4 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204420432976A1AA00466BF4 /* StorageManager.swift */; };
 		204420472976A88B00466BF4 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 204420462976A88B00466BF4 /* FirebaseStorage */; };
 		20442049297DC54B00466BF4 /* ConversationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20442048297DC54A00466BF4 /* ConversationTableViewCell.swift */; };
+		2080571B298AD633002B965B /* LocationPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2080571A298AD633002B965B /* LocationPickerViewController.swift */; };
 		208DA2EA2972FCF800216C70 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 208DA2E92972FCF800216C70 /* Realm */; };
 		208DA2EC2972FCF800216C70 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 208DA2EB2972FCF800216C70 /* RealmSwift */; };
 		20923CD6296E162100824028 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20923CD5296E162100824028 /* AppDelegate.swift */; };
@@ -46,6 +47,7 @@
 		20442041297584C400466BF4 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		204420432976A1AA00466BF4 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		20442048297DC54A00466BF4 /* ConversationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationTableViewCell.swift; sourceTree = "<group>"; };
+		2080571A298AD633002B965B /* LocationPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPickerViewController.swift; sourceTree = "<group>"; };
 		20923CD2296E162100824028 /* MessengerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MessengerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20923CD5296E162100824028 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		20923CD7296E162100824028 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -133,12 +135,13 @@
 			isa = PBXGroup;
 			children = (
 				20923CD9296E162100824028 /* ConversationVC.swift */,
+				20923D0F2970263600824028 /* ProfileVC.swift */,
 				20923CF9296E222B00824028 /* Login */,
 				20923CF7296E1F2800824028 /* NewConversationVC.swift */,
 				20923CF3296E1F0400824028 /* PhotoVC.swift */,
 				20923CF5296E1F1900824028 /* VideoPlayerVC.swift */,
-				20923D0F2970263600824028 /* ProfileVC.swift */,
 				20442041297584C400466BF4 /* ChatViewController.swift */,
+				2080571A298AD633002B965B /* LocationPickerViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -309,6 +312,7 @@
 				20923CD8296E162100824028 /* SceneDelegate.swift in Sources */,
 				20923CF2296E1EF400824028 /* RegisterVC.swift in Sources */,
 				20923CF4296E1F0400824028 /* PhotoVC.swift in Sources */,
+				2080571B298AD633002B965B /* LocationPickerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
