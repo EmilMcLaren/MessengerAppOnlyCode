@@ -705,7 +705,10 @@ extension DatabaseManager {
                 completion(.failure(DatabaseError.failedToFetch))
                 return
             }
-           
+            print("THIS FROM UNWRAP \(id)")
+//            print("THIS FROM VALUE \(value)")
+//            print("THIS FROM VALUE COMPACT MAP \(value.compactMap({$0}))")
+            
             let messages: [Message] = value.compactMap { dictionary in
                 guard let name = dictionary["name"] as? String,
                     let content = dictionary["content"] as? String,
@@ -714,10 +717,13 @@ extension DatabaseManager {
                     let isRead = dictionary["is_read"] as? Bool,
                     let senderEmail = dictionary["sender_email"] as? String,
                     let type = dictionary["type"] as? String,
-                    let date = ChatViewController.dateFormatter.date(from: dateString) else {
+                    let date = ChatViewController.dateFormatter.date(from: dateString)
+                else {
                         print("failed to get messages from unwrap")
                           return nil
                     }
+                
+                //print("THIS DATE FROM UNWRAP \(dateString)")
                 
                 var kind: MessageKind?
                  
@@ -778,7 +784,7 @@ extension DatabaseManager {
                 
                 return Message(sender: sender,
                                messageId: messageID,
-                               sentDate: date,
+                               sentDate: Date(),
                                kind: finalKind)
             }
             completion(.success(messages))

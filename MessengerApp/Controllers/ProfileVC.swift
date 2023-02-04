@@ -52,6 +52,9 @@ class ProfileVC: UITableViewController {
                                                 handler: { [weak self]_ in
                 guard let strongSelf = self else {return}
                 
+                
+                UserDefaults.standard.setValue(nil, forKey: "email")
+                UserDefaults.standard.setValue(nil, forKey: "name")
                 //log out Facebook
                 FBSDKLoginKit.LoginManager().logOut()
                 print("Sign out from FB")

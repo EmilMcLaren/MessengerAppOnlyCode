@@ -41,6 +41,7 @@
 		20923D16297198D100824028 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 20923D15297198D100824028 /* GoogleSignIn */; };
 		20923D18297198D100824028 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 20923D17297198D100824028 /* GoogleSignInSwift */; };
 		20D167942987160500930F68 /* NewConversationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D167932987160500930F68 /* NewConversationCell.swift */; };
+		20E30C94298E3CB20020708D /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 20E30C93298E3CB20020708D /* FirebaseCrashlytics */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -85,6 +86,7 @@
 				20923D06296E94EE00824028 /* FirebaseFirestore in Frameworks */,
 				20923D13297047F700824028 /* FacebookLogin in Frameworks */,
 				20923D00296E94EE00824028 /* FirebaseAuth in Frameworks */,
+				20E30C94298E3CB20020708D /* FirebaseCrashlytics in Frameworks */,
 				208DA2EA2972FCF800216C70 /* Realm in Frameworks */,
 				2001D4262972EE7700138F1F /* MessageKit in Frameworks */,
 			);
@@ -210,6 +212,7 @@
 				20923CCE296E162100824028 /* Sources */,
 				20923CCF296E162100824028 /* Frameworks */,
 				20923CD0296E162100824028 /* Resources */,
+				20E30C92298D5E2F0020708D /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -232,6 +235,7 @@
 				208DA2E92972FCF800216C70 /* Realm */,
 				208DA2EB2972FCF800216C70 /* RealmSwift */,
 				204420462976A88B00466BF4 /* FirebaseStorage */,
+				20E30C93298E3CB20020708D /* FirebaseCrashlytics */,
 			);
 			productName = MessengerApp;
 			productReference = 20923CD2296E162100824028 /* MessengerApp.app */;
@@ -291,6 +295,29 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		20E30C92298D5E2F0020708D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"",
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		20923CCE296E162100824028 /* Sources */ = {
@@ -453,6 +480,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MessengerApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -659,6 +687,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 20923D14297198CE00824028 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignInSwift;
+		};
+		20E30C93298E3CB20020708D /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 20923CFC296E94ED00824028 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

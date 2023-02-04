@@ -122,7 +122,25 @@ class LoginVC: UIViewController {
         scrollView.addSubview(loginButton)
         scrollView.addSubview(loginButtonFB)
         scrollView.addSubview(loginButtonGoogle)
+        
+        ///for crashlist firebase
+        //scrollView.addSubview(button)
     }
+    
+    ///for crashlist firebase
+//    lazy var button: UIButton = {
+//        let button = UIButton(type: .roundedRect)
+//        button.frame = CGRect(x: 90, y: 80, width: 100, height: 30)
+//        button.setTitle("Testing", for: .normal)
+//        button.addTarget(self, action: #selector(self.crashButtonTapped(_:)), for: .touchUpInside)
+//        button.backgroundColor = .blue
+//        return button
+//    }()
+    ///for crashlist firebase
+//    @objc func crashButtonTapped(_ sender: AnyObject) {
+//         let numbers = [0]
+//         let _ = numbers[1]
+//     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
