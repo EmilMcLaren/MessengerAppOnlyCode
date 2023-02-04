@@ -33,9 +33,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //google
         GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
             if error != nil || user == nil {
-              print("Sign in \(user)")
+                print("Sign in \(String(describing: user))")
             } else {
-                print("Error \(error)")
+                print("Error \(String(describing: error))")
             }
         }
         
@@ -58,7 +58,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let tapBar = UITabBarController()
         tapBar.tabBar.tintColor = .black
-        tapBar.tabBar.backgroundColor = #colorLiteral(red: 0.8496792912, green: 0.9519454837, blue: 1, alpha: 1)
+        //tapBar.tabBar.backgroundColor = #colorLiteral(red: 0.8496792912, green: 0.9519454837, blue: 1, alpha: 1)
+        
+//        if traitCollection.userInterfaceStyle == .light {
+//            appearance.backgroundColor = #colorLiteral(red: 0.8496792912, green: 0.9519454837, blue: 1, alpha: 1)
+//        } else {
+//            appearance.backgroundColor = .secondarySystemBackground
+//        }
+//        if UIUserInterfaceStyle.light == .light {
+//            tapBar.tabBar.backgroundColor = #colorLiteral(red: 0.8496792912, green: 0.9519454837, blue: 1, alpha: 1)
+//        } else {
+//            tapBar.tabBar.backgroundColor = .secondarySystemBackground
+//        }
+        
         //tapBar.setViewControllers([firstController, secondController], animated: true)
         tapBar.viewControllers = [firstController, secondController]
         

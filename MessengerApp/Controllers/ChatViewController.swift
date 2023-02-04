@@ -473,11 +473,11 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
                               sentDate: Date(),
                               kind: .text(text))
         
-        guard let currentEmail = UserDefaults.standard.value(forKey: "email") as? String else {
-            return
-        }
+//        guard let currentEmail = UserDefaults.standard.value(forKey: "email") as? String else {
+//            return
+//        }
         
-        let otherUserEmail = DatabaseManager.safeEmail(emailAddress: currentEmail)
+        //let otherUserEmail = DatabaseManager.safeEmail(emailAddress: currentEmail)
         //send message
         if isNewConversation {
             print("isNewConversation true")
@@ -522,7 +522,8 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
         
         let safeCurrentEmail = DatabaseManager.safeEmail(emailAddress: currentUserEmail)
         let date1 = Date()
-
+        
+        ///its used!! else crash get messages
         date1.description(with: NSLocale(localeIdentifier: "EN") as Locale)
         let dateString = ChatViewController.dateFormatter.string(from: date1)
         

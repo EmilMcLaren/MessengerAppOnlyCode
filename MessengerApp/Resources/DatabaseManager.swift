@@ -327,13 +327,12 @@ extension DatabaseManager {
         //add new message to message
         //update sender latest message
         //update recipient latest message
-        guard let myEmail = UserDefaults.standard.value(forKey: "email") as? String,
-        let currentName = UserDefaults.standard.value(forKey: "name") as? String else {
-            completion(false)
-            return
-        }
+//        guard let myEmail = UserDefaults.standard.value(forKey: "email") as? String else {
+//            completion(false)
+//            return
+//        }
         
-        let currentEmail = DatabaseManager.safeEmail(emailAddress: myEmail)
+        //let currentEmail = DatabaseManager.safeEmail(emailAddress: myEmail)
 
         database.child("\(conversation)/messages").observeSingleEvent(of: .value) { [weak self] snapshot in
             guard let strongSelf = self else { return }

@@ -66,7 +66,8 @@ final class ConversationVC: UIViewController {
         //fetchConversation()
         setupTableView()
         startListeningForConversation()
-        
+        setColorTabBar()
+
         loginObserver = NotificationCenter.default.addObserver(forName: .didLogInNotification, object: nil, queue: .main, using: { [weak self] _ in
             guard let strongSelf = self else {
                 return
@@ -90,9 +91,6 @@ final class ConversationVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBarController?.tabBar.isHidden = false
-//        DispatchQueue.main.async {
-//            self.tableView.reloadData()
-//        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -100,11 +98,14 @@ final class ConversationVC: UIViewController {
         validateAuth()
     }
     
-    
-    
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+    private func setColorTabBar() {
+        if traitCollection.userInterfaceStyle == .light {
+            tabBarController?.tabBar.backgroundColor  = #colorLiteral(red: 0.8496792912, green: 0.9519454837, blue: 1, alpha: 1)
+            tabBarController?.tabBar.tintColor = .black
+        } else {
+            tabBarController?.tabBar.tintColor = .white
+            tabBarController?.tabBar.backgroundColor = .secondarySystemBackground
+        }
     }
     
     func resetDefaults() {

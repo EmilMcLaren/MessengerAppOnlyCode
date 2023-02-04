@@ -85,7 +85,7 @@ final class ProfileVC: UITableViewController {
         tableView.tableHeaderView = createTableHeader
         navBarAppearance()
         
-        view.backgroundColor = .white
+        view.backgroundColor = .secondarySystemBackground
     }
     
     override func viewDidLayoutSubviews() {
@@ -143,7 +143,7 @@ final class ProfileVC: UITableViewController {
                                         y: 0,
                                         width: self.view.width,
                                         height: 300))
-        headerView.backgroundColor = .link
+        headerView.backgroundColor = .secondarySystemBackground
         headerView.addSubview(imageViewForHeader!)
         return headerView
     }()
@@ -217,14 +217,37 @@ final class ProfileVC: UITableViewController {
 //        cell.textLabel?.textColor = .red
 //        cell.textLabel?.textAlignment = .center
         
+        let verticalPadding: CGFloat = 8
+        
+        let maskLayer = CALayer()
+        maskLayer.cornerRadius = 10    //if you want round edges
+        maskLayer.backgroundColor = UIColor.black.cgColor
+        maskLayer.frame = CGRect(x: cell.bounds.origin.x, y: cell.bounds.origin.y, width: view.bounds.width, height: cell.bounds.height).insetBy(dx: 0, dy: verticalPadding/2)
+        cell.layer.mask = maskLayer
+        
+        
+//        cell.layer.cornerRadius = 30
+//        cell.clipsToBounds = true
+//        cell.frame = cell.frame.inset(by: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10))
         return cell
     }
+    
+//    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return 20
+//    }
+    
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         data[indexPath.row].handler?()
 }
+    
+//    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        let headerView = UIView()
+//        headerView.backgroundColor = UIColor.clear
+//        return headerView
+//    }
 }
 
 class ProfileTableViewCell: UITableViewCell {
