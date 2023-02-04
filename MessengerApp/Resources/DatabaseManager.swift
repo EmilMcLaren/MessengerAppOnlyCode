@@ -629,8 +629,8 @@ extension DatabaseManager {
                       let messageID = dictionary["id"] as? String,
                       let isRead = dictionary["is_read"] as? Bool,
                       let senderEmail = dictionary["sender_email"] as? String,
-                      let type = dictionary["type"] as? String,
-                      let date = ChatViewController.dateFormatter.date(from: dateString)
+                      let type = dictionary["type"] as? String
+                      //let date = ChatViewController.dateFormatter.date(from: dateString)
                 else {
                     print("failed to get messages from unwrap")
                     return nil
