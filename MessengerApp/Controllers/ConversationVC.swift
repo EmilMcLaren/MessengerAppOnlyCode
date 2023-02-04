@@ -11,24 +11,12 @@ import JGProgressHUD
 import openssl_grpc
 import AVFoundation
 
-//struct Conversation {
-//    let id: String
-//    let name: String
-//    let otherUserEmail: String
-//    let latestMessage: LatestMessage
-//}
-//
-//struct LatestMessage {
-//    let date: String
-//    let text : String
-//    let isRead: Bool
-//}
+
 
 /// Controller that shows list of conversations
 final class ConversationVC: UIViewController {
-
-    private let spinner = JGProgressHUD(style: .dark )
     
+    private let spinner = JGProgressHUD(style: .dark )
     public var completion: ((SearchResult) -> (Void))?
     private var loginObserver: NSObjectProtocol?
     
@@ -56,28 +44,21 @@ final class ConversationVC: UIViewController {
         title = "Chats"
         view.backgroundColor = .white
         navBarAppearance()
-        
-        //resetDefaults()
-        //print(UserDefaults.value(forKey: "email"))
-        
+
         view.addSubview(tableView)
         view.addSubview(noConversationLabel)
-        
-        //fetchConversation()
+
         setupTableView()
         startListeningForConversation()
         setColorTabBar()
-
+        
         loginObserver = NotificationCenter.default.addObserver(forName: .didLogInNotification, object: nil, queue: .main, using: { [weak self] _ in
             guard let strongSelf = self else {
                 return
             }
             strongSelf.startListeningForConversation()
         })
-        
     }
-    
-    
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -115,25 +96,22 @@ final class ConversationVC: UIViewController {
             defaults.removeObject(forKey: key)
         }
     }
-    
-    
+
     private func startListeningForConversation() {
         guard let email = UserDefaults.standard.value(forKey: "email") as? String else {
             return
         }
-        
         if let loginObserver = loginObserver {
             NotificationCenter.default.removeObserver(loginObserver)
         }
-        
-        
+
         print("starting conversation fetch...")
         let safeEmail = DatabaseManager.safeEmail(emailAddress: email)
         
         DatabaseManager.shared.getAllConversation(for: safeEmail) { [weak self] result in
             switch result {
             case .success(let conversations):
-
+                
                 print("success conversations models")
                 
                 guard !conversations.isEmpty else {
@@ -154,29 +132,23 @@ final class ConversationVC: UIViewController {
                 self?.noConversationLabel.layer.isHidden = false
                 print("failed to get convos \(error)")
             }
-            
-        
         }
     }
-    
-    
-    
+
     //Set NavigationBar and SearchController
-     func  navBarAppearance() {
-         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose,
-                                                             target: self,
-                                                             action: #selector(didTapComposeButton))
+    func  navBarAppearance() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose,
+                                                            target: self,
+                                                            action: #selector(didTapComposeButton))
         navigationController?.navigationBar.prefersLargeTitles = true
         
         let appearance = UINavigationBarAppearance()
-        //appearance.backgroundColor = #colorLiteral(red: 0.8496792912, green: 0.9519454837, blue: 1, alpha: 1)
-        
-         if traitCollection.userInterfaceStyle == .light {
-             appearance.backgroundColor = #colorLiteral(red: 0.8496792912, green: 0.9519454837, blue: 1, alpha: 1)
-         } else {
-             appearance.backgroundColor = .secondarySystemBackground
-         }
-         
+
+        if traitCollection.userInterfaceStyle == .light {
+            appearance.backgroundColor = #colorLiteral(red: 0.8496792912, green: 0.9519454837, blue: 1, alpha: 1)
+        } else {
+            appearance.backgroundColor = .secondarySystemBackground
+        }
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
         navigationController?.navigationBar.standardAppearance = appearance
     }
@@ -185,10 +157,7 @@ final class ConversationVC: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
     }
-    
-    
-    
-    
+   
     @objc private func didTapComposeButton() {
         let vc = NewConversationVC()
         vc.completion = { [weak self] result in
@@ -215,7 +184,6 @@ final class ConversationVC: UIViewController {
         present(navVC, animated: true)
     }
     
-    
     private func createNewConversation(result: SearchResult) {
         let name = result.name
         let email = DatabaseManager.safeEmail(emailAddress: result.email)
@@ -224,7 +192,6 @@ final class ConversationVC: UIViewController {
         //if it does, reuse Conversation id
         //otherwise use existing code
         DatabaseManager.shared.conversationExists(with: email) { [weak self] result in
-            
             guard let strongSelf = self else {
                 return
             }
@@ -246,10 +213,6 @@ final class ConversationVC: UIViewController {
         }
     }
     
-    
-    
-    //let isLoggedIN = UserDefaults.standard.bool(forKey: "logged_in")
-    
     private func validateAuth() {
         if FirebaseAuth.Auth.auth().currentUser == nil {
             let vc = LoginVC()
@@ -260,7 +223,6 @@ final class ConversationVC: UIViewController {
     }
 }
 
-
 //MARK: TableView Data Source
 extension ConversationVC: UITableViewDelegate, UITableViewDataSource {
     
@@ -268,7 +230,6 @@ extension ConversationVC: UITableViewDelegate, UITableViewDataSource {
         let model = conversations[indexPath.row]
         let cell =  tableView.dequeueReusableCell(withIdentifier: ConversationTableViewCell.identifier,
                                                   for: indexPath ) as! ConversationTableViewCell
-       
         cell.configure(with: model)
         return cell
     }
@@ -278,11 +239,8 @@ extension ConversationVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
         let model = conversations[indexPath.row]
-        
         openConversation(model)
-        
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
@@ -311,11 +269,10 @@ extension ConversationVC: UITableViewDelegate, UITableViewDataSource {
             
             DatabaseManager.shared.deleteConversation(conversationId: conversationId) { success in
                 if !success {
-                   //add model  and row back and show error alert
+                    //add model  and row back and show error alert
                 }
             }
             tableView.endUpdates()
         }
     }
-    
 }

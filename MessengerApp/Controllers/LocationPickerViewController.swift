@@ -12,7 +12,7 @@ import SwiftUI
 
 
 final class LocationPickerViewController: UIViewController {
-
+    
     public var completion: ((CLLocationCoordinate2D) -> Void)?
     private var coordinates: CLLocationCoordinate2D?
     var isPickable = true
@@ -55,7 +55,7 @@ final class LocationPickerViewController: UIViewController {
             guard let coordinates = self.coordinates else {
                 return
             }
-
+            
             let pin = MKPointAnnotation()
             pin.coordinate = coordinates
             map.addAnnotation(pin)

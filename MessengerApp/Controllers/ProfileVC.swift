@@ -11,17 +11,6 @@ import FacebookLogin
 import GoogleSignIn
 import SDWebImage
 
-//enum ProfileViewModelType {
-//    case info, logout
-//}
-//
-//struct ProfileViewModel {
-//    let viewModelType: ProfileViewModelType
-//    let title: String
-//    let handler: (() -> Void)?
-//}
-
-
 
 final class ProfileVC: UITableViewController {
 
@@ -33,14 +22,12 @@ final class ProfileVC: UITableViewController {
         
         tableView.register(ProfileTableViewCell.self,
                            forCellReuseIdentifier: ProfileTableViewCell.identifier)
-        
         data.append(ProfileViewModel(viewModelType: .info,
                                      title: "Name: \(UserDefaults.standard.value(forKey: "name") as? String ?? "No name")",
                                      handler: nil))
         data.append(ProfileViewModel(viewModelType: .info,
                                      title: "Email: \(UserDefaults.standard.value(forKey: "email") as? String ?? "No email")",
                                      handler: nil))
-        
         data.append(ProfileViewModel(viewModelType: .logout, title: "Log out", handler: { [weak self] in
             
             guard let strongSelf = self else {return}
@@ -90,7 +77,6 @@ final class ProfileVC: UITableViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
         if let imageViewForHeader = imageViewForHeader {
             imageViewForHeader.frame = CGRect(x: (view.width-150)/2,
                                      y: 75,
@@ -98,16 +84,9 @@ final class ProfileVC: UITableViewController {
                                      height: 150)
             
             imageViewForHeader.layer.cornerRadius = imageViewForHeader.width/2
-            
         }
         
-//        imageViewForHeader?.frame = CGRect(x: (view.width-150)/2,
-//                                 y: 75,
-//                                 width: 150,
-//                                 height: 150)
-//
-//        imageViewForHeader?.layer.cornerRadius = imageViewForHeader!.width/2
-//
+
         createTableHeader = UIView(frame: CGRect(x: 0,
                                         y: 0,
                                         width: self.view.width,
@@ -120,7 +99,6 @@ final class ProfileVC: UITableViewController {
        navigationController?.hidesBarsOnTap = false
        
        let appearance = UINavigationBarAppearance()
-       //appearance.backgroundColor = #colorLiteral(red: 0.8496792912, green: 0.9519454837, blue: 1, alpha: 1)
         
         if traitCollection.userInterfaceStyle == .light {
             appearance.backgroundColor = #colorLiteral(red: 0.8496792912, green: 0.9519454837, blue: 1, alpha: 1)
@@ -130,15 +108,13 @@ final class ProfileVC: UITableViewController {
        navigationController?.navigationBar.scrollEdgeAppearance = appearance
        navigationController?.navigationBar.standardAppearance = appearance
    }
-    
-    
+
     lazy var createTableHeader: UIView? =  {
         guard let email = UserDefaults.standard.value(forKey: "email") as? String else { return nil }
         
         let safeEmail = DatabaseManager.safeEmail(emailAddress: email)
         let fileName = safeEmail + "_profile_picture.png"
         let path = "image/"+fileName
-        
         let headerView = UIView(frame: CGRect(x: 0,
                                         y: 0,
                                         width: self.view.width,
@@ -147,7 +123,6 @@ final class ProfileVC: UITableViewController {
         headerView.addSubview(imageViewForHeader!)
         return headerView
     }()
-    
     
     lazy var imageViewForHeader: UIImageView? = {
         guard let email = UserDefaults.standard.value(forKey: "email") as? String else { return nil }
@@ -174,80 +149,35 @@ final class ProfileVC: UITableViewController {
                 print("Failed to get download url: \(error)")
             }
         }
-
         return imageView
     }()
-    
-    
-//    func downloadImage(imageView: UIImageView, url: URL) {
-//        imageView.sd_setImage(with: url, completed: nil)
-////        URLSession.shared.dataTask(with: url) { data, _, error in
-////            guard let data = data, error == nil else {
-////                return
-////            }
-////            DispatchQueue.main.async {
-////                let image = UIImage(data: data)
-////                imageView.image = image
-////            }
-////        }.resume()
-//    }
-    
-    
-    
-    
-    
-    //MARK: TableView DataSource
-//    override func numberOfSections(in tableView: UITableView) -> Int {
-//        // #warning Incomplete implementation, return the number of sections
-//        return 0
-//    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return data.count
     }
-
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let viewModel = data[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: ProfileTableViewCell.identifier,
                                                  for: indexPath) as! ProfileTableViewCell
         cell.setUP(with: viewModel)
-//        cell.textLabel?.text = data[indexPath.row]
-//        cell.textLabel?.textColor = .red
-//        cell.textLabel?.textAlignment = .center
-        
         let verticalPadding: CGFloat = 8
         
         let maskLayer = CALayer()
         maskLayer.cornerRadius = 10    //if you want round edges
         maskLayer.backgroundColor = UIColor.black.cgColor
         maskLayer.frame = CGRect(x: cell.bounds.origin.x, y: cell.bounds.origin.y, width: view.bounds.width, height: cell.bounds.height).insetBy(dx: 0, dy: verticalPadding/2)
+        
         cell.layer.mask = maskLayer
-        
-        
-//        cell.layer.cornerRadius = 30
-//        cell.clipsToBounds = true
-//        cell.frame = cell.frame.inset(by: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10))
+
         return cell
     }
-    
-//    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return 20
-//    }
-    
-    
-    
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         data[indexPath.row].handler?()
-}
-    
-//    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let headerView = UIView()
-//        headerView.backgroundColor = UIColor.clear
-//        return headerView
-//    }
+    }
 }
 
 class ProfileTableViewCell: UITableViewCell {

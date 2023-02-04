@@ -9,9 +9,9 @@ import UIKit
 import SDWebImage
 
 class ConversationTableViewCell: UITableViewCell {
-
+    
     static let identifier = "cellCustom"
-
+    
     private let userImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -74,15 +74,12 @@ class ConversationTableViewCell: UITableViewCell {
         StorageManager.shared.downloadUrl(for: path) { [weak self] result in
             switch result {
             case .success(let url):
-                
                 DispatchQueue.main.async {
                     self?.userImageView.sd_setImage(with: url, completed: nil)
                 }
-                
             case .failure(let error):
                 print("failed to get image url:\(error)")
             }
         }
     }
-    
 }

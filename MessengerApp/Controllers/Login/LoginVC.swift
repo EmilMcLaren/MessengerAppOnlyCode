@@ -15,14 +15,9 @@ import GoogleUtilities_AppDelegateSwizzler
 import JGProgressHUD
 
 
-//let loginButton = FBLoginButton()
-//        loginButton.center = view.center
-//        view.addSubview(loginButton)
-
 final class LoginVC: UIViewController {
-
+    
     private let spinner = JGProgressHUD(style: .dark )
-
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.clipsToBounds = true
@@ -77,9 +72,7 @@ final class LoginVC: UIViewController {
         button.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
         return button
     }()
-    
-    //private let loginButtonFB = FBLoginButton()
-    
+
     private let loginButtonFB: FBLoginButton = {
         let button = FBLoginButton()
         button.permissions = ["public_profile","email"]
@@ -96,11 +89,9 @@ final class LoginVC: UIViewController {
             guard let strongSelf = self else {
                 return
             }
-            
             strongSelf.navigationController?.dismiss(animated: true)
         })
-        
-        
+ 
         title = "Log In"
         view.backgroundColor = .systemBackground
         
@@ -128,19 +119,19 @@ final class LoginVC: UIViewController {
     }
     
     ///for crashlist firebase
-//    lazy var button: UIButton = {
-//        let button = UIButton(type: .roundedRect)
-//        button.frame = CGRect(x: 90, y: 80, width: 100, height: 30)
-//        button.setTitle("Testing", for: .normal)
-//        button.addTarget(self, action: #selector(self.crashButtonTapped(_:)), for: .touchUpInside)
-//        button.backgroundColor = .blue
-//        return button
-//    }()
+    //    lazy var button: UIButton = {
+    //        let button = UIButton(type: .roundedRect)
+    //        button.frame = CGRect(x: 90, y: 80, width: 100, height: 30)
+    //        button.setTitle("Testing", for: .normal)
+    //        button.addTarget(self, action: #selector(self.crashButtonTapped(_:)), for: .touchUpInside)
+    //        button.backgroundColor = .blue
+    //        return button
+    //    }()
     ///for crashlist firebase
-//    @objc func crashButtonTapped(_ sender: AnyObject) {
-//         let numbers = [0]
-//         let _ = numbers[1]
-//     }
+    //    @objc func crashButtonTapped(_ sender: AnyObject) {
+    //         let numbers = [0]
+    //         let _ = numbers[1]
+    //     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -156,29 +147,27 @@ final class LoginVC: UIViewController {
         emailField.frame = CGRect(x: 30,
                                   y: imageView.buttom+10,
                                   width: scrollView.width-60,
-                                 height: 52)
+                                  height: 52)
         
         passwordField.frame = CGRect(x: 30,
-                                  y: emailField.buttom+10,
-                                  width: scrollView.width-60,
-                                 height: 52)
+                                     y: emailField.buttom+10,
+                                     width: scrollView.width-60,
+                                     height: 52)
         loginButton.frame = CGRect(x: 30,
-                                  y: passwordField.buttom+10,
-                                  width: scrollView.width-60,
-                                 height: 52)
+                                   y: passwordField.buttom+10,
+                                   width: scrollView.width-60,
+                                   height: 52)
         
         loginButtonFB.frame = CGRect(x: 30,
-                                  y: loginButton.buttom+10,
-                                  width: scrollView.width-60,
-                                 height: 52)
+                                     y: loginButton.buttom+10,
+                                     width: scrollView.width-60,
+                                     height: 52)
         
         loginButtonGoogle.frame = CGRect(x: 30,
-                                  y: loginButtonFB.buttom+10,
-                                  width: scrollView.width-60,
-                                 height: 52)
-        //loginButtonFB.frame.origin.y = loginButton.buttom+20
-        
-}
+                                         y: loginButtonFB.buttom+10,
+                                         width: scrollView.width-60,
+                                         height: 52)
+    }
     //firebase login
     @objc private func loginButtonTapped() {
         
@@ -190,9 +179,7 @@ final class LoginVC: UIViewController {
                   alertUserLoginError()
                   return
               }
-        
         spinner.show(in: view)
-        
         //firebase login
         FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
             guard let strongSelf = self else {return}
@@ -200,7 +187,6 @@ final class LoginVC: UIViewController {
             DispatchQueue.main.async {
                 strongSelf.spinner.dismiss()
             }
-
             guard let result = authResult, error == nil else {
                 print("Failed to log in user with email: \(email)")
                 return
@@ -222,8 +208,7 @@ final class LoginVC: UIViewController {
                     print("Failed to read data with error \(error)")
                 }
             }
-            
-            //let safeEmailTo = DatabaseManager.safeEmail(emailAddress: email)
+
             DatabaseManager.shared.getDataFor(path: safeEmail) { [weak self] result in
                 switch result {
                 case .success(let data):
@@ -239,8 +224,7 @@ final class LoginVC: UIViewController {
             }
             
             UserDefaults.standard.set(email, forKey: "email")
-            
-            
+
             print("Logged  in user \(user)")
             strongSelf.navigationController?.dismiss(animated: true, completion: nil)
         }
@@ -248,29 +232,26 @@ final class LoginVC: UIViewController {
     
     //google login
     @objc private func loginButtonTappedGoogle() {
- 
+        
         GIDSignIn.sharedInstance.signIn(withPresenting: self) { signInResult, error in
-        guard error == nil else { return }
+            guard error == nil else { return }
 
-           
-            print("here")
             signInResult?.user.refreshTokensIfNeeded { user, error in
-                   guard error == nil else { return }
-                   guard let user = user else { return }
-
+                guard error == nil else { return }
+                guard let user = user else { return }
+                
                 guard let idToken = user.idToken?.tokenString else {return}
                 let accessToken = user.accessToken.tokenString
                 
-                print("Did sign with id toke: \(idToken)")
-                print("Did sign with Google: \(user)")
-
+//                print("Did sign with id toke: \(idToken)")
+//                print("Did sign with Google: \(user)")
+                
                 guard let email = user.profile?.email,
                       let firstName = user.profile?.givenName,
                       let lastName = user.profile?.familyName else {
                           return
                       }
 
-                
                 UserDefaults.standard.set(email, forKey: "email")
                 UserDefaults.standard.set("\(firstName) \(lastName)", forKey: "name")
                 
@@ -315,26 +296,10 @@ final class LoginVC: UIViewController {
                     print("Successfully to log in with google credential")
                     strongSelf.navigationController?.dismiss(animated: true, completion: nil)
                 }
-                
-//                let cter = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: idToken)
-//
-//               }
-
-                
-            
-    }
+            }
         }
-        
-        
-//        GIDSignIn.sharedInstance.signIn(withPresenting: self) { signInResult, error in
-//            guard error == nil else { return }
-//
-//
-//            // If sign in succeeded, display the app's main content View.
-//          }
     }
-    
-    
+
     func alertUserLoginError() {
         let alert = UIAlertController(title: "Error", message: "Please enter all information", preferredStyle: .alert)
         
@@ -342,8 +307,7 @@ final class LoginVC: UIViewController {
         
         present(alert, animated: true)
     }
-    
-    
+
     @objc func didTapRegister() {
         let vc = RegisterVC()
         vc.title = "Create Account"
@@ -362,18 +326,15 @@ extension LoginVC: UITextFieldDelegate {
     }
 }
 
-
 //MARK: Facebook loginButtonFB delegate
 extension LoginVC: LoginButtonDelegate {
-
+    
     func loginButtonDidLogOut(_ loginButton: FBLoginButton) {
         //none action
     }
-
-    
-    
+   
     func loginButton(_ loginButton: FBLoginButton, didCompleteWith result: LoginManagerLoginResult?, error: Error?) {
-
+        
         guard let token = result?.token?.tokenString else {
             print("Failed log in with Facebook")
             return
@@ -392,8 +353,7 @@ extension LoginVC: LoginButtonDelegate {
                       print("Failed to make facebook graph request")
                       return
                   }
-            
-            //print("\(result)")
+
             guard let firstName = result["first_name"] as? String,
                   let lastName = result["last_name"] as? String,
                   let  email = result["email"] as? String,
@@ -407,17 +367,7 @@ extension LoginVC: LoginButtonDelegate {
             
             UserDefaults.standard.set(email, forKey: "email")
             UserDefaults.standard.set("\(firstName) \(lastName)", forKey: "name")
-            
-            
-            
-            
-            //not delete please
-//            let nameConponents = userName.components(separatedBy: " ")
-//            guard nameConponents.count == 2 else {return}
-//            let firstName = nameConponents[0]
-//            let lastName = nameConponents[1]
-            
-            
+          
             DatabaseManager.shared.userExist(with: email) { exists in
                 if !exists {
                     let chatUser = ChatAppUser(firstName: firstName,
@@ -434,11 +384,10 @@ extension LoginVC: LoginButtonDelegate {
                                     print("Failed to get data from FB")
                                     return
                                 }
-                                
                                 print("got data from facebook, loading...")
                                 //upload image
                                 let fileName = chatUser.profilePictureFileName
-
+                                
                                 StorageManager.shared.uploadPictureProfile(with: data, fileName: fileName, completion: { result in
                                     switch result {
                                     case .success(let downloadUrl):
@@ -451,25 +400,23 @@ extension LoginVC: LoginButtonDelegate {
                             }.resume()
                         }
                     })
-            }
-            
-            let credential = FacebookAuthProvider.credential(withAccessToken: token)
-            FirebaseAuth.Auth.auth().signIn(with: credential) { [weak self] authResult, error in
-                guard let strongSelf = self else {return}
-
-                guard authResult != nil, error == nil else {
-                    if let error = error {
-                        print("Facebook credential login failed - \(error)")
-                    }
-                    return
                 }
-                print("Sucsessfuly facebook credential login")
-                strongSelf.navigationController?.dismiss(animated: true, completion: nil)
-            }
+                
+                let credential = FacebookAuthProvider.credential(withAccessToken: token)
+                FirebaseAuth.Auth.auth().signIn(with: credential) { [weak self] authResult, error in
+                    guard let strongSelf = self else {return}
+                    
+                    guard authResult != nil, error == nil else {
+                        if let error = error {
+                            print("Facebook credential login failed - \(error)")
+                        }
+                        return
+                    }
+                    print("Sucsessfuly facebook credential login")
+                    strongSelf.navigationController?.dismiss(animated: true, completion: nil)
+                }
+            }    
         }
-
-       
-    }
     }
 }
 

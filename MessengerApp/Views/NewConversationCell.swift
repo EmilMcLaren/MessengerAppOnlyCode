@@ -9,9 +9,9 @@ import Foundation
 import SDWebImage
 
 class NewConversationCell: UITableViewCell {
-
+    
     static let identifier = "NewConversationCell"
-
+    
     private let userImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -32,7 +32,6 @@ class NewConversationCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(userImageView)
         contentView.addSubview(userNameLabel)
-       
     }
     
     required init?(coder: NSCoder) {
@@ -50,7 +49,6 @@ class NewConversationCell: UITableViewCell {
                                      y: 20,
                                      width: contentView.width - 20 - userImageView.width,
                                      height: 50)
-        
     }
     
     public func configure(with model: SearchResult) {
@@ -66,11 +64,9 @@ class NewConversationCell: UITableViewCell {
                 DispatchQueue.main.async {
                     self?.userImageView.sd_setImage(with: url, completed: nil)
                 }
-                
             case .failure(let error):
                 print("failed to get image url:\(error)")
             }
         }
     }
-    
 }

@@ -10,12 +10,8 @@ import PhotosUI
 import FirebaseAuth
 import JGProgressHUD
 
-
-//let loginButton = FBLoginButton()
-//        loginButton.center = view.center
-//        view.addSubview(loginButton)
 final class RegisterVC: UIViewController {
-
+    
     private let spinner = JGProgressHUD(style: .dark )
     
     private let scrollView: UIScrollView = {
@@ -129,7 +125,6 @@ final class RegisterVC: UIViewController {
         imageView.isUserInteractionEnabled = true
         scrollView.isUserInteractionEnabled = true
         
-        
         let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapChangeProfilePic))
         imageView.addGestureRecognizer(gesture)
     }
@@ -148,32 +143,33 @@ final class RegisterVC: UIViewController {
                                  y: 30,
                                  width: size,
                                  height: size)
+        
         imageView.layer.cornerRadius = imageView.width/2.0
         
         firstNameField.frame = CGRect(x: 30,
-                                  y: imageView.buttom+10,
-                                  width: scrollView.width-60,
-                                 height: 52)
+                                      y: imageView.buttom+10,
+                                      width: scrollView.width-60,
+                                      height: 52)
         lastNameField.frame = CGRect(x: 30,
-                                  y: firstNameField.buttom+10,
-                                  width: scrollView.width-60,
-                                 height: 52)
+                                     y: firstNameField.buttom+10,
+                                     width: scrollView.width-60,
+                                     height: 52)
         
         emailField.frame = CGRect(x: 30,
                                   y: lastNameField.buttom+10,
                                   width: scrollView.width-60,
-                                 height: 52)
+                                  height: 52)
         
         passwordField.frame = CGRect(x: 30,
-                                  y: emailField.buttom+10,
-                                  width: scrollView.width-60,
-                                 height: 52)
+                                     y: emailField.buttom+10,
+                                     width: scrollView.width-60,
+                                     height: 52)
+        
         registerButton.frame = CGRect(x: 30,
-                                  y: passwordField.buttom+10,
-                                  width: scrollView.width-60,
-                                 height: 52)
-
-}
+                                      y: passwordField.buttom+10,
+                                      width: scrollView.width-60,
+                                      height: 52)
+    }
     
     @objc private func registerButtonTapped() {
         emailField.resignFirstResponder()
@@ -185,8 +181,8 @@ final class RegisterVC: UIViewController {
               let password = passwordField.text,
               let firstName = firstNameField.text,
               let lastName = lastNameField.text,
-                
-              !email.isEmpty,
+              
+                !email.isEmpty,
               !password.isEmpty,
               !firstName.isEmpty,
               !lastName.isEmpty,
@@ -218,7 +214,6 @@ final class RegisterVC: UIViewController {
                     print("error in auth")
                     return
                 }
-                
                 UserDefaults.standard.setValue(email, forKey: "email")
                 UserDefaults.standard.setValue("\(firstName) \(lastName)", forKey: "name")
                 
@@ -229,9 +224,9 @@ final class RegisterVC: UIViewController {
                     if success {
                         //upload image
                         guard let image = strongSelf.imageView.image,
-                                let data = image.pngData() else {
-                            return
-                        }
+                              let data = image.pngData() else {
+                                  return
+                              }
                         
                         let fileName = chatUser.profilePictureFileName
                         
@@ -246,13 +241,11 @@ final class RegisterVC: UIViewController {
                         })
                     }
                 })
-                
                 strongSelf.navigationController?.dismiss(animated: true, completion: nil)
             }
         }
     }
     
-     
     func alertUserLoginError(message: String = "Please enter all information to create a new account") {
         let alert = UIAlertController(title: "Error",
                                       message: message,
@@ -283,18 +276,18 @@ extension RegisterVC: UIImagePickerControllerDelegate, UINavigationControllerDel
         
         actionSheet.addAction(UIAlertAction(title: "Cancel",
                                             style: .cancel,
-                                        handler: nil))
+                                            handler: nil))
         
         actionSheet.addAction(UIAlertAction(title: "Take photo",
                                             style: .default,
-                                        handler: { [weak self] _ in
-                                        self?.presentCamera()
+                                            handler: { [weak self] _ in
+            self?.presentCamera()
         }))
         
         actionSheet.addAction(UIAlertAction(title: "Choose photo",
                                             style: .default,
-                                        handler: { [weak self] _ in
-                                        self?.presentPhotoPicker()
+                                            handler: { [weak self] _ in
+            self?.presentPhotoPicker()
         }))
         
         present(actionSheet, animated: true)
@@ -311,7 +304,7 @@ extension RegisterVC: UIImagePickerControllerDelegate, UINavigationControllerDel
     func presentPhotoPicker() {
         var configuration: PHPickerConfiguration = PHPickerConfiguration()
         configuration.filter = PHPickerFilter.images
-
+        
         let picker: PHPickerViewController = PHPickerViewController(configuration: configuration)
         picker.delegate = self
         present(picker, animated: true, completion: nil)
@@ -321,8 +314,7 @@ extension RegisterVC: UIImagePickerControllerDelegate, UINavigationControllerDel
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         
         dismiss(animated: true)
-
-        //print(results)
+        
         for item in results {
             item.itemProvider.loadObject(ofClass: UIImage.self) { image, error in
                 if let image = image as? UIImage {
@@ -335,10 +327,8 @@ extension RegisterVC: UIImagePickerControllerDelegate, UINavigationControllerDel
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        //print("INFO \(info)")
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-
     }
 }

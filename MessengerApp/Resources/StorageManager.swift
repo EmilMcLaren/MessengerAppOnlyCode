@@ -14,9 +14,7 @@ import SwiftUI
 final class StorageManager {
     
     static let shared = StorageManager()
-    
    
-    
     private let storage = Storage.storage().reference()
     
     /*
@@ -38,10 +36,10 @@ final class StorageManager {
             
             self.storage.child("images/\(fileName)").downloadURL { url, error in
                 guard let url = url else {
-                //failed
-                print("failde to get download url")
-                completion(.failure(StorageErrors.failedToGetDownloadUrl))
-                return
+                    //failed
+                    print("failde to get download url")
+                    completion(.failure(StorageErrors.failedToGetDownloadUrl))
+                    return
                 }
                 
                 let urlString = url.absoluteString
@@ -61,13 +59,12 @@ final class StorageManager {
                 completion(.failure(StorageErrors.faildeToUpload))
                 return
             }
-            
             self?.storage.child("message_images/\(fileName)").downloadURL { url, error in
                 guard let url = url else {
-                //failed
-                print("failde to get download url")
-                completion(.failure(StorageErrors.failedToGetDownloadUrl))
-                return
+                    //failed
+                    print("failde to get download url")
+                    completion(.failure(StorageErrors.failedToGetDownloadUrl))
+                    return
                 }
                 
                 let urlString = url.absoluteString
@@ -76,12 +73,10 @@ final class StorageManager {
             }
         }
     }
-    
-    
+
     ///upload video that will be sent in a conversation message
     public func uploadMessageVideo(with fileUrl: URL, fileName: String,  completion: @escaping UploadPictureCompletion) {
-        
-        
+ 
         storage.child("message_videos/\(fileName)").putFile(from: fileUrl, metadata: nil) { [weak self] metaDataa, error in
             guard error == nil else {
                 //failed
@@ -92,10 +87,10 @@ final class StorageManager {
             
             self?.storage.child("message_videos/\(fileName)").downloadURL { url, error in
                 guard let url = url else {
-                //failed
-                print("failde to get download url")
-                completion(.failure(StorageErrors.failedToGetDownloadUrl))
-                return
+                    //failed
+                    print("failde to get download url")
+                    completion(.failure(StorageErrors.failedToGetDownloadUrl))
+                    return
                 }
                 
                 let urlString = url.absoluteString
