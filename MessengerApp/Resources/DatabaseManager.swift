@@ -13,11 +13,15 @@ import MessageKit
 import CoreLocation
 import AVFAudio
 
+
+/// Manager objects  to read and write data to real time firebase database
 final class DatabaseManager {
     
+    ///shared instance of class
     static let shared = DatabaseManager()
+    private init() {}
     
-     let database = Database.database().reference()
+    let database = Database.database().reference()
     
     static func safeEmail(emailAddress: String) -> String {
         var safeEmail = emailAddress.replacingOccurrences(of: ".", with: "-")
@@ -28,7 +32,8 @@ final class DatabaseManager {
 }
 
 extension DatabaseManager {
-    public func getDataFor(path: String, completion: @escaping (Result<Any, Error>) -> Void) {
+    ///return dictionary node at child path
+    public func getDataFor(path: String, completion: @escaping (Result<Any, Error>) -> Void) { 
         self.database.child("\(path)").observe(.value) { snapshot in
             guard let value = snapshot.value else {
                 completion(.failure(DatabaseError.failedToFetch))
@@ -43,7 +48,10 @@ extension DatabaseManager {
 //MARK: Account Manager
 extension DatabaseManager {
     
-    ///check have an user
+    ///check if user exist for given email
+    ///Parameters
+    /// - `email`:            Target email to be checked
+    /// - `completion`: Asynch closure to return with result
     public func userExist(with email: String, completition: @escaping ((Bool) -> Void)) {
         
         let safeEmail = DatabaseManager.safeEmail(emailAddress: email)
@@ -122,7 +130,7 @@ extension DatabaseManager {
             //completion(true)
         }
     }
-    
+    /// Gets all users from database
     public func getAllUsers(completion: @escaping (Result<[[String: String]], Error>) -> Void) {
         database.child("users").observeSingleEvent(of: .value) { snapshot in
             guard let value = snapshot.value as? [[String: String]] else {

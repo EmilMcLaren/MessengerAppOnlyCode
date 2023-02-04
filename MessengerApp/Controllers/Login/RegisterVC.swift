@@ -14,7 +14,7 @@ import JGProgressHUD
 //let loginButton = FBLoginButton()
 //        loginButton.center = view.center
 //        view.addSubview(loginButton)
-class RegisterVC: UIViewController {
+final class RegisterVC: UIViewController {
 
     private let spinner = JGProgressHUD(style: .dark )
     

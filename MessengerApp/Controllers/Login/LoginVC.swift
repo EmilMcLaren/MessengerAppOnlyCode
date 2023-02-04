@@ -19,7 +19,7 @@ import JGProgressHUD
 //        loginButton.center = view.center
 //        view.addSubview(loginButton)
 
-class LoginVC: UIViewController {
+final class LoginVC: UIViewController {
 
     private let spinner = JGProgressHUD(style: .dark )
 

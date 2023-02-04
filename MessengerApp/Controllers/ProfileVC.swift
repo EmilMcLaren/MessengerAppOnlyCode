@@ -11,19 +11,19 @@ import FacebookLogin
 import GoogleSignIn
 import SDWebImage
 
-enum ProfileViewModelType {
-    case info, logout
-}
+//enum ProfileViewModelType {
+//    case info, logout
+//}
+//
+//struct ProfileViewModel {
+//    let viewModelType: ProfileViewModelType
+//    let title: String
+//    let handler: (() -> Void)?
+//}
 
-struct ProfileViewModel {
-    let viewModelType: ProfileViewModelType
-    let title: String
-    let handler: (() -> Void)?
-}
 
 
-
-class ProfileVC: UITableViewController {
+final class ProfileVC: UITableViewController {
 
     private var data = [ProfileViewModel]()
     
@@ -120,8 +120,13 @@ class ProfileVC: UITableViewController {
        navigationController?.hidesBarsOnTap = false
        
        let appearance = UINavigationBarAppearance()
-       appearance.backgroundColor = #colorLiteral(red: 0.8496792912, green: 0.9519454837, blue: 1, alpha: 1)
-       
+       //appearance.backgroundColor = #colorLiteral(red: 0.8496792912, green: 0.9519454837, blue: 1, alpha: 1)
+        
+        if traitCollection.userInterfaceStyle == .light {
+            appearance.backgroundColor = #colorLiteral(red: 0.8496792912, green: 0.9519454837, blue: 1, alpha: 1)
+        } else {
+            appearance.backgroundColor = .secondarySystemBackground
+        }
        navigationController?.navigationBar.scrollEdgeAppearance = appearance
        navigationController?.navigationBar.standardAppearance = appearance
    }

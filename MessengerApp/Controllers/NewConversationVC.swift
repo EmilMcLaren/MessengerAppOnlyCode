@@ -8,7 +8,7 @@
 import UIKit
 import JGProgressHUD
 
-class NewConversationVC: UIViewController {
+final class NewConversationVC: UIViewController {
 
     
     public var completion: ((SearchResult) -> (Void))?
@@ -211,7 +211,7 @@ extension NewConversationVC: UISearchBarDelegate {
 }
 
 
-struct SearchResult {
-    let name: String
-    let email: String
-}
+//struct SearchResult {
+//    let name: String
+//    let email: String
+//}

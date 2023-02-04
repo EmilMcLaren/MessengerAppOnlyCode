@@ -11,20 +11,21 @@ import JGProgressHUD
 import openssl_grpc
 import AVFoundation
 
-struct Conversation {
-    let id: String
-    let name: String
-    let otherUserEmail: String
-    let latestMessage: LatestMessage
-}
+//struct Conversation {
+//    let id: String
+//    let name: String
+//    let otherUserEmail: String
+//    let latestMessage: LatestMessage
+//}
+//
+//struct LatestMessage {
+//    let date: String
+//    let text : String
+//    let isRead: Bool
+//}
 
-struct LatestMessage {
-    let date: String
-    let text : String
-    let isRead: Bool
-}
-
-class ConversationVC: UIViewController {
+/// Controller that shows list of conversations
+final class ConversationVC: UIViewController {
 
     private let spinner = JGProgressHUD(style: .dark )
     
@@ -167,8 +168,14 @@ class ConversationVC: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         
         let appearance = UINavigationBarAppearance()
-        appearance.backgroundColor = #colorLiteral(red: 0.8496792912, green: 0.9519454837, blue: 1, alpha: 1)
+        //appearance.backgroundColor = #colorLiteral(red: 0.8496792912, green: 0.9519454837, blue: 1, alpha: 1)
         
+         if traitCollection.userInterfaceStyle == .light {
+             appearance.backgroundColor = #colorLiteral(red: 0.8496792912, green: 0.9519454837, blue: 1, alpha: 1)
+         } else {
+             appearance.backgroundColor = .secondarySystemBackground
+         }
+         
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
         navigationController?.navigationBar.standardAppearance = appearance
     }
@@ -296,13 +303,14 @@ extension ConversationVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             //begin delete
-            tableView.beginUpdates()
             let conversationId = conversations[indexPath.row].id
+            tableView.beginUpdates()
+            self.conversations.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .left)
             
-            DatabaseManager.shared.deleteConversation(conversationId: conversationId) { [weak self] success in
-                if success {
-                    self?.conversations.remove(at: indexPath.row)
-                    tableView.deleteRows(at: [indexPath], with: .left)
+            DatabaseManager.shared.deleteConversation(conversationId: conversationId) { success in
+                if !success {
+                   //add model  and row back and show error alert
                 }
             }
             tableView.endUpdates()
