@@ -10,6 +10,7 @@
 		2001D4262972EE7700138F1F /* MessageKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2001D4252972EE7700138F1F /* MessageKit */; };
 		2001D4292972EF2E00138F1F /* JGProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 2001D4282972EF2E00138F1F /* JGProgressHUD */; };
 		2001D42C2972F14500138F1F /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 2001D42B2972F14500138F1F /* SDWebImage */; };
+		200AF41929929A130029810E /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 200AF41829929A130029810E /* .gitignore */; };
 		20442042297584C400466BF4 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20442041297584C400466BF4 /* ChatViewController.swift */; };
 		204420442976A1AA00466BF4 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204420432976A1AA00466BF4 /* StorageManager.swift */; };
 		204420472976A88B00466BF4 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 204420462976A88B00466BF4 /* FirebaseStorage */; };
@@ -48,6 +49,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		200AF41829929A130029810E /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		20442041297584C400466BF4 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		204420432976A1AA00466BF4 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		20442048297DC54A00466BF4 /* ConversationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationTableViewCell.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 				20923CEA296E175600824028 /* Views */,
 				20923CE9296E174900824028 /* Controllers */,
 				20923CE3296E162400824028 /* Info.plist */,
+				200AF41829929A130029810E /* .gitignore */,
 			);
 			path = MessengerApp;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				200AF41929929A130029810E /* .gitignore in Resources */,
 				20923CE2296E162400824028 /* LaunchScreen.storyboard in Resources */,
 				20923CDF296E162400824028 /* Assets.xcassets in Resources */,
 				20923D0A296EB4CA00824028 /* GoogleService-Info.plist in Resources */,
